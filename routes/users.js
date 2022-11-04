@@ -22,3 +22,5 @@ router.get('/:id', verifyUser, getUser);
 router.get('/', isAdmin, getAllUsers);
 
 export default router;
+
+// TESTED
