@@ -1,52 +1,35 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
-import authRoutes from './routes/auth.js'
-import hotelsRoutes from './routes/hotels.js'
-import usersRoutes from './routes/users.js'
-import roomsRoutes from './routes/rooms.js'
-import cookieParser from 'cookie-parser'
-import cors from 'cors'
+import authorRoutes from './routers/author.js'
+import userRoutes from './routers/User.js'
+import hotelRoutes from './routers/Hotels.js'
+import roomRoutes from './routers/room.js'
 
-//Create Port for Backend
-const app = express();
-var PORT = process.env.PORT || 3000;
+
+
+// Tao PORT backend
+const app = express()
 dotenv.config();
 
+//Ham connect 
 const connect = async () => {
-
     try {
-
-        await mongoose.connect(process.env.MONGODB_URI);
-        console.log("Connected to DB");
-    
-    } catch(error) {
+    await mongoose.connect(process.env.URI);
+    console.log('Connected DB');
+    }
+    catch(error) {
         throw error;
     }
-
 }
 
-app.use(cors());
-app.use(cookieParser());
 app.use(express.json());
+app.use('/api/author', authorRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/hotels', hotelRoutes);
+app.use('/api/room', roomRoutes);
 
-app.use('/api/author', authRoutes);
-app.use('/api/hotels', hotelsRoutes);
-app.use('/api/users', usersRoutes);
-app.use('/api/rooms', roomsRoutes);
-
-app.use((err, req, res, next) => {
-    const errorStatus = err.status || 500;
-    const errorMessage = err.message || "Error!";
-    return res.status(errorStatus).json({
-      success: false,
-      status: errorStatus,
-      message: errorMessage,
-      stack: err.stack,
-    });
-  });
-
-app.listen(PORT, () => {
+app.listen(3000, () => {
     connect();
-    console.log('Connected!');
+    console.log('Connected');
 });
