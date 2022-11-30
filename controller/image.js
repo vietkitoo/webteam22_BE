@@ -8,8 +8,9 @@ export const imagesInFolder = async (req, res) => {
     .max_results(30)
     .execute();
 
-    const publicIds = resources.map( file => file.public_id);
-    res.send(publicIds);
+    res.json({
+        resources: resources
+    });
 }
 
 export const imagesAll = async (req, res) => {
@@ -19,6 +20,8 @@ export const imagesAll = async (req, res) => {
     .max_results(30)
     .execute();
 
-    const publicIds = resources.map( file => file.public_id);
-    res.send(publicIds);
+    res.json({
+        resources: resources
+    });
+    
 }
