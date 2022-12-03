@@ -10,7 +10,7 @@ import cors from 'cors'
 
 //Create Port for Backend
 const app = express();
-var PORT = process.env.PORT || 3000;
+
 dotenv.config();
 
 const connect = async () => {
@@ -30,7 +30,7 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
-app.use('/api/author', authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/hotels', hotelsRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/rooms', roomsRoutes);
@@ -46,7 +46,7 @@ app.use((err, req, res, next) => {
     });
   });
 
-app.listen(PORT, () => {
+app.listen(5000, () => {
     connect();
     console.log('Connected!');
 });

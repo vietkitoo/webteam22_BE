@@ -1,7 +1,6 @@
 import Hotel from "../models/Hotel.js";
 import Room from "../models/Room.js";
 
-//create hotel
 export const createHotel = async (req, res, next) => {
     const newHotel = new Hotel(req.body);
 
@@ -17,7 +16,6 @@ export const createHotel = async (req, res, next) => {
     }
 };
 
-//find by id
 export const getHotel = async (req, res, next) => {
     try {
 
@@ -31,24 +29,19 @@ export const getHotel = async (req, res, next) => {
     }
 };
 
-//find all hotel
 export const getAllHotels = async (req, res, next) => {
-
-    const {min, max, ...others} = req.query;
-
+    const { min, max, ...others } = req.query;
     try {
-
-        const hotels = await Hotel.find({...others, price: {$gt: min || 1, $lt: max || 9999}}).limit(req.query.limit);
-        res.status(200).json(hotels);
-
-    } catch(err) {
-
-        next(err);
-
+      const hotels = await Hotel.find({
+        ...others,
+        cheapestPrice: { $gt: min | 1, $lt: max || 999 },
+      }).limit(req.query.limit);
+      res.status(200).json(hotels);
+    } catch (err) {
+      next(err);
     }
-};
+  };
 
-//find by city
 export const byCity = async (req, res, next) => {
     const cities = req.query.cities.split(",")
     try {
@@ -65,7 +58,6 @@ export const byCity = async (req, res, next) => {
     }
 };
 
-//find by type
 export const byType = async (req, res, next) => {
     try {
 
@@ -90,7 +82,6 @@ export const byType = async (req, res, next) => {
     }
 };
 
-//find room by id
 export const getHotelsRoom = async (req, res, next) => {
     try {
         const hotel = await Hotel.findById(req.params.id);

@@ -1,7 +1,7 @@
 import Hotel from "../models/Hotel.js";
 import Room from "../models/Room.js";
 
-//create room
+
 export const createRoom = async (req, res, next) => {
     const hotelId = req.params.hotelId;
     const newRoom = new Room(req.body);
@@ -26,7 +26,6 @@ export const createRoom = async (req, res, next) => {
     }
 }
 
-//update room
 export const updateRoom = async (req, res, next) => {
     try {
       await Room.updateOne(
@@ -43,7 +42,6 @@ export const updateRoom = async (req, res, next) => {
     }
 };
 
-//find by id
 export const getRoom = async (req, res, next) => {
     try {
 
@@ -57,7 +55,6 @@ export const getRoom = async (req, res, next) => {
     }
 };
 
-//find all room
 export const getAllRooms = async (req, res, next) => {
     try {
 
