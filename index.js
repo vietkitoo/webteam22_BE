@@ -5,8 +5,8 @@ import authorRoutes from './routers/author.js'
 import userRoutes from './routers/User.js'
 import hotelRoutes from './routers/Hotels.js'
 import roomRoutes from './routers/room.js'
-
-
+import uploadRoutes from './routers/upload.js'
+import imagesRoutes from './routers/images.js'
 
 // Tao PORT backend
 const app = express()
@@ -28,8 +28,10 @@ app.use('/api/auth', authorRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/hotels', hotelRoutes);
 app.use('/api/room', roomRoutes);
+app.use('/api/upload', uploadRoutes);
+app.use('/api/images', imagesRoutes)
 
-app.listen(5000, () => {
+app.listen(3001, () => {
     connect();
     console.log('Connected');
 });
