@@ -16,7 +16,7 @@ export const register = async (req, res, next) => {
         }) 
 
         await newUser.save();
-        res.status(200).send("User has been created!");
+        res.status(200).send("Tạo tài khoản thành công");
     } catch(err) {
         next(err)
     }
@@ -26,10 +26,10 @@ export const login = async (req, res, next) => {
     try {
 
         const user = await User.findOne({username: req.body.username});
-        if(!user) return next(createError(404, 'User not Found'));
+        if(!user) return next(createError(404, 'Không tìm thấy người dùng'));
 
         const passwordIsCorrect = await bcrypt.compare(req.body.password, user.password);
-        if(!passwordIsCorrect) return next(createError(400, 'Wrong Password or E-mail'));
+        if(!passwordIsCorrect) return next(createError(400, 'Mật khẩu không chính xác'));
 
         const token = jwt.sign({id: user._id, isAdmin: user.isAdmin}, process.env.JWT_SECRET);
 

@@ -1,5 +1,5 @@
 import express from 'express'
-import { createRoom, getAllRooms, getRoom, updateRoom } from '../controllers/rooms.js';
+import { createRoom, getAllRooms, getRoom, updateRoom, deleteRoom } from '../controllers/rooms.js';
 import { isAdmin } from '../utils/verifyToken.js';
 
 const router = express.Router();
@@ -15,5 +15,8 @@ router.get('/:id', getRoom);
 
 //For get all rooms
 router.get('/', getAllRooms);
+
+//Delete room
+router.delete("/:id/:hotelId", isAdmin, deleteRoom);
 
 export default router;

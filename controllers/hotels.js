@@ -16,6 +16,19 @@ export const createHotel = async (req, res, next) => {
     }
 };
 
+export const updateHotel = async (req, res, next) => {
+    try {
+      const updatedHotel = await Hotel.findByIdAndUpdate(
+        req.params.id,
+        { $set: req.body },
+        { new: true }
+      );
+      res.status(200).json(updatedHotel);
+    } catch (err) {
+      next(err);
+    }
+}
+
 export const getHotel = async (req, res, next) => {
     try {
 
@@ -34,7 +47,7 @@ export const getAllHotels = async (req, res, next) => {
     try {
       const hotels = await Hotel.find({
         ...others,
-        cheapestPrice: { $gt: min | 1, $lt: max || 999 },
+        cheapestPrice: { $gt: min | 1, $lt: max || 100000000 },
       }).limit(req.query.limit);
       res.status(200).json(hotels);
     } catch (err) {
@@ -96,3 +109,12 @@ export const getHotelsRoom = async (req, res, next) => {
 
     }
 }
+
+export const deleteHotel = async (req, res, next) => {
+    try {
+      await Hotel.findByIdAndDelete(req.params.id);
+      res.status(200).json("Hotel has been deleted.");
+    } catch (err) {
+      next(err);
+    }
+  };
