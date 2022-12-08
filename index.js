@@ -52,8 +52,6 @@ let port = 5000;
 if(port === "" || port === null){
   port = 5000;
 }
-
-
 app.listen(PORT, () => {
   connect();
   console.log('Server started at http://localhost:5000');
