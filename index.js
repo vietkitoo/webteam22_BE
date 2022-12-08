@@ -52,18 +52,6 @@ let port = 5000;
 if(port === "" || port === null){
   port = 5000;
 }
-
-<<<<<<< HEAD
-app.use(express.json());
-app.use('/api/auth', authorRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/hotels', hotelRoutes);
-app.use('/api/room', roomRoutes);
-app.use('/api/upload', uploadRoutes);
-app.use('/api/images', imagesRoutes)
-=======
->>>>>>> 29264cfc273813ee682a6825506777398f8299ec
-
 app.listen(PORT, () => {
   connect();
   console.log('Server started at http://localhost:5000');
