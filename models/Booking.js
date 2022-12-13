@@ -14,6 +14,10 @@ const bookingSchema = mongoose.Schema({
         type: String,
         require: true
     },
+    username:{
+        type: String,
+        require:true,
+    },
     fromDate: {
         type: String,
         require: true

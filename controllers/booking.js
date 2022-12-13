@@ -8,6 +8,7 @@ export const newBooking = async(req,res) => {
     const {
         room,
         userId,
+        username,
         fromDate,
         toDate,
         totalPrice,
@@ -20,6 +21,7 @@ export const newBooking = async(req,res) => {
             room: room.name,
             roomId: room._id,
             userId,
+            username,
             fromDate: moment(fromDate).format('DD-MM-YY'),
             toDate : moment(toDate).format('DD-MM-YY'),
             totalPrice,
@@ -36,7 +38,6 @@ export const newBooking = async(req,res) => {
 };
 
 export const getBooking = async (req, res, next) => {
-    // const id = req.body.userId
     try {
      const bookings = await Booking.find({userId : req.params.id})
       res.status(200).json(bookings);
