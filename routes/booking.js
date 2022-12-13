@@ -1,7 +1,11 @@
 import express from 'express'
+
 const router = express.Router();
-import { newBooking } from '../controllers/booking';
+import { newBooking, getBooking, getAllBooking } from '../controllers/booking.js';
 
 
-router.post("/booking" , newBooking )
+router.post('/' , newBooking );
+router.get('/:id', getBooking);
+router.get('/', getAllBooking);
 
+export default router;

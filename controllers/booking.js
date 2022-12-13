@@ -1,6 +1,9 @@
-import Booking from "../models/Booking";
-import Room from "../models/Room";
-const moment = require ("moment");
+import Booking from "../models/Booking.js";
+import Room from "../models/Room.js";
+import moment from 'moment';
+import Stripe from 'stripe';
+
+
 export const newBooking = async(req,res) => {
     const {
         room,
@@ -25,8 +28,8 @@ export const newBooking = async(req,res) => {
         });
 
         const booking = await newBooking.save()
-
-        const roomtemp = await Room.findOne({_id : room._id})
+        const id = req.body.roomId
+        const roomtemp = await Room.findOne({id : room._id})
 
         roomtemp.currentbookings.push({
             bookingid: booking._id, 
@@ -39,5 +42,28 @@ export const newBooking = async(req,res) => {
         res.send('Đặt phòng thành công');
     } catch (error) {
         return res.status(400).json({ error});
+    }
+};
+
+export const getBooking = async (req, res, next) => {
+    const id = req.body.userId
+    try {
+     const bookings = await Booking.find({id : id})
+      res.status(200).json(bookings);
+    } catch (err) {
+      next(err);
+    }
+};
+
+export const getAllBooking = async (req, res, next) => {
+    try {
+
+        const bookings = await Booking.find()
+        res.status(200).json(bookings);
+
+    } catch(err) {
+
+        next(err);
+
     }
 };

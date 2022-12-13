@@ -1,5 +1,5 @@
 import express from 'express'
-import { createRoom, getAllRooms, getRoom, updateRoom, deleteRoom } from '../controllers/rooms.js';
+import { createRoom, getAllRooms, updateRoom, deleteRoom, getRoom, getTypeRoom , updateRoomAvailability} from '../controllers/rooms.js';
 import { isAdmin } from '../utils/verifyToken.js';
 
 const router = express.Router();
@@ -8,10 +8,13 @@ const router = express.Router();
 router.post('/:hotelId', isAdmin, createRoom); //only als admin login can you add hotels
 
 //Update Room
-router.put("/availability/:id", updateRoom);
+router.put("/availability/:id",  updateRoomAvailability);
 
+router.put("/:id",  updateRoom);
 //For get room by id
 router.get('/:id', getRoom);
+
+router.get('/typeroom/:id', getTypeRoom);
 
 //For get all rooms
 router.get('/', getAllRooms);
