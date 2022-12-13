@@ -48,3 +48,30 @@ export const deleteUser = async (req,res,next)=>{
     }
   }
 
+  //reset password
+export const updatePassword = async (req, res, next) => {
+  try {
+      const user = await User.findById(req.body.userId);
+      const passwordIsCorrect = await bcrypt.compare(req.body.password, user.password);
+      if (!passwordIsCorrect){
+          res.status(400).json(
+              {
+                  status: "Wrong current password"
+              }
+          );
+      } else{
+          const salt = bcrypt.genSaltSync(10);
+          const hash = bcrypt.hashSync(req.body.newPassword, salt);
+          user.password = hash;
+          await user.save();
+          res.status(200).json(
+              {
+                  status: "Reset password successfully"
+              }
+          );
+      }
+
+  } catch(err) {
+      next(err);
+  }
+};
