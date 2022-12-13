@@ -29,16 +29,6 @@ export const newBooking = async(req,res) => {
 
         const booking = await newBooking.save()
         const id = req.body.roomId
-        const roomtemp = await Room.findOne({id : room._id})
-
-        roomtemp.currentbookings.push({
-            bookingid: booking._id, 
-            fromDate: moment(fromDate).format('DD-MM-YY'), 
-            toDate: moment(toDate).format('DD-MM-YY'),
-            userId : userId,
-            status : booking.status
-        });
-        await roomtemp.save()
         res.send('Đặt phòng thành công');
     } catch (error) {
         return res.status(400).json({ error});
