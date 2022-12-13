@@ -55,7 +55,7 @@ export const getAllHotels = async (req, res, next) => {
     }
   };
 
-export const byCity = async (req, res, next) => {
+  export const byCity = async (req, res, next) => {
     const cities = req.query.cities.split(",")
     try {
 

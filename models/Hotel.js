@@ -5,76 +5,68 @@ import mongoose from "mongoose";
 const HotelSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
-      },
-      type: {
-        type: String,
-        required: true,
-      },
-      city: {
-        type: String,
-        required: true,
-      },
-      address: {
-        type: String,
-        required: true,
-      },
-      distance: {
-        type: String,
-        required: true,
-      },
-      image: {
+        required: true
+    },
+    type: {
         type: String,
         required: true
-      },
-      image1: {
+    },
+    city: {
         type: String,
         required: true
-      },
-      image2: {
+    },
+    address: {
         type: String,
         required: true
-      },
-      image3: {
+    },
+    image: {
         type: String,
         required: true
-      },
-      image4: {
+    },
+    image1: {
         type: String,
         required: true
-      },
-      image5: {
+    },
+    image2: {
         type: String,
         required: true
-      },
-      image6: {
+    },
+    image3: {
         type: String,
         required: true
-      },
-      title: {
+    },
+    image4: {
         type: String,
-        required: true,
-      },
-      desc: {
+        required: true
+    },
+    image5: {
         type: String,
-        required: true,
-      },
-      rating: {
+        required: true
+    },
+    image6: {
+        type: String,
+        required: true
+    },
+    desc: {
+        type: String,
+        required: true
+    },
+    rating: {
         type: Number,
         min: 0,
-        max: 5,
-      },
-      rooms: {
-        type: [String],
-      },
-      cheapestPrice: {
+        max: 10
+    },
+    rooms: {
+        type: [String]
+    },
+    price: {
         type: Number,
-        required: true,
-      },
-      featured: {
+        required: true
+    },
+    featured: {
         type: Boolean,
-        default: false,
-      },
+        default: false
+    },
 });
 
 export default mongoose.model("Hotel", HotelSchema);
