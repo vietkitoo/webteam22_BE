@@ -36,9 +36,9 @@ export const newBooking = async(req,res) => {
 };
 
 export const getBooking = async (req, res, next) => {
-    const id = req.body.userId
+    // const id = req.body.userId
     try {
-     const bookings = await Booking.find({id : id})
+     const bookings = await Booking.find({userId : req.params.id})
       res.status(200).json(bookings);
     } catch (err) {
       next(err);
