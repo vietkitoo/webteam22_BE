@@ -1,27 +1,31 @@
 import express from 'express'
-import { getAllUsers, getUser, updatePassword } from '../controllers/users.js';
+import { getAllUsers, getUser, updateUser, deleteUser } from '../controllers/users.js';
 import { isAdmin, verifyToken, verifyUser } from '../utils/verifyToken.js';
 
 const router = express.Router();
 
-//login
+
 router.get("/checkauth", verifyToken, (req, res, next) => {
     res.send('You are Logged In!')
 });
-//login and can delete acount
 
 router.get("/checkuser/:id", verifyUser, (req, res, next) => {
     res.send('You are Logged In and You can delete account!')
-})
+});
 
 
-//search by id
+router.put("/:id", verifyUser, updateUser);
+//For get user by id
 router.get('/:id', verifyUser, getUser);
 
-//Admin, can see all user
+//For get all users -> for admin section, only admin can see all users
 router.get('/', isAdmin, getAllUsers);
 
-//Reset password
-router.put('/password', updatePassword);
+router.put("/:id", verifyUser, updateUser);
+
+//DELETE
+router.delete("/:id", verifyUser, deleteUser);
+
+
 
 export default router;

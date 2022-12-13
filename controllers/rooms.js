@@ -1,7 +1,7 @@
 import Hotel from "../models/Hotel.js";
 import Room from "../models/Room.js";
 
-//create room
+
 export const createRoom = async (req, res, next) => {
     const hotelId = req.params.hotelId;
     const newRoom = new Room(req.body);
@@ -26,7 +26,6 @@ export const createRoom = async (req, res, next) => {
     }
 }
 
-//update room
 export const updateRoom = async (req, res, next) => {
     try {
       await Room.updateOne(
@@ -43,7 +42,17 @@ export const updateRoom = async (req, res, next) => {
     }
 };
 
-//find by id
+export const getTypeRoom = async (req, res, next) => {
+  try {
+
+      const room = await Room.findOne({ "roomNumbers._id": req.params.id },);
+      res.status(200).json(room);
+
+  } catch(err) {
+      next(err);
+  }
+};
+
 export const getRoom = async (req, res, next) => {
     try {
 
@@ -57,11 +66,10 @@ export const getRoom = async (req, res, next) => {
     }
 };
 
-//find all room
 export const getAllRooms = async (req, res, next) => {
     try {
 
-        const rooms = await Room.find();
+        const rooms = await Room.find()
         res.status(200).json(rooms);
 
     } catch(err) {
@@ -70,3 +78,20 @@ export const getAllRooms = async (req, res, next) => {
 
     }
 };
+
+export const deleteRoom = async (req, res, next) => {
+    const hotelId = req.params.hotelid;
+    try {
+      await Room.findByIdAndDelete(req.params.id);
+      try {
+        await Hotel.findByIdAndUpdate(hotelId, {
+          $pull: { rooms: req.params.id },
+        });
+      } catch (err) {
+        next(err);
+      }
+      res.status(200).json("Phòng đã được xóa");
+    } catch (err) {
+      next(err);
+    }
+  };

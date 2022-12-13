@@ -1,7 +1,6 @@
 import Hotel from "../models/Hotel.js";
 import Room from "../models/Room.js";
 
-//create hotel
 export const createHotel = async (req, res, next) => {
     const newHotel = new Hotel(req.body);
 
@@ -17,7 +16,19 @@ export const createHotel = async (req, res, next) => {
     }
 };
 
-//find by id
+export const updateHotel = async (req, res, next) => {
+    try {
+      const updatedHotel = await Hotel.findByIdAndUpdate(
+        req.params.id,
+        { $set: req.body },
+        { new: true }
+      );
+      res.status(200).json(updatedHotel);
+    } catch (err) {
+      next(err);
+    }
+}
+
 export const getHotel = async (req, res, next) => {
     try {
 
@@ -31,13 +42,12 @@ export const getHotel = async (req, res, next) => {
     }
 };
 
-//find all hotel
 export const getAllHotels = async (req, res, next) => {
     const { min, max, ...others } = req.query;
     try {
       const hotels = await Hotel.find({
         ...others,
-        cheapestPrice: { $gt: min | 1, $lt: max || 999 },
+        cheapestPrice: { $gt: min | 1, $lt: max || 100000000 },
       }).limit(req.query.limit);
       res.status(200).json(hotels);
     } catch (err) {
@@ -45,8 +55,7 @@ export const getAllHotels = async (req, res, next) => {
     }
   };
 
-//find by city
-export const byCity = async (req, res, next) => {
+  export const byCity = async (req, res, next) => {
     const cities = req.query.cities.split(",")
     try {
 
@@ -62,7 +71,6 @@ export const byCity = async (req, res, next) => {
     }
 };
 
-//find by type
 export const byType = async (req, res, next) => {
     try {
 
@@ -87,7 +95,6 @@ export const byType = async (req, res, next) => {
     }
 };
 
-//find room by id
 export const getHotelsRoom = async (req, res, next) => {
     try {
         const hotel = await Hotel.findById(req.params.id);
@@ -102,3 +109,12 @@ export const getHotelsRoom = async (req, res, next) => {
 
     }
 }
+
+export const deleteHotel = async (req, res, next) => {
+    try {
+      await Hotel.findByIdAndDelete(req.params.id);
+      res.status(200).json("Hotel has been deleted.");
+    } catch (err) {
+      next(err);
+    }
+  };
