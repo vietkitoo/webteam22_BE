@@ -7,6 +7,7 @@ import Stripe from 'stripe';
 export const newBooking = async(req,res) => {
     const {
         room,
+        roomId,
         userId,
         username,
         fromDate,
@@ -18,8 +19,8 @@ export const newBooking = async(req,res) => {
 
     try{
         const newBooking = new Booking({
-            room: room.name,
-            roomId: room._id,
+            room: room,
+            roomId: roomId,
             userId,
             username,
             fromDate: moment(fromDate).format('DD-MM-YY'),
