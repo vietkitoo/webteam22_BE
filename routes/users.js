@@ -14,7 +14,7 @@ router.get("/checkuser/:id", verifyUser, (req, res, next) => {
 });
 
 
-router.put("/:id", verifyUser, updateUser);
+router.put("/:id/update", verifyUser, updateUser);
 //For get user by id
 router.get('/:id', verifyUser, getUser);
 

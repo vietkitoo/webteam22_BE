@@ -30,7 +30,16 @@ export const updateUser = async (req,res,next)=>{
     try {
       const updatedUser = await User.findByIdAndUpdate(
         req.params.id,
-        { $set: req.body },
+        { $set: {
+              fullname: req.body.fullname,
+              password: req.body.password,
+              country: req.body.country,
+              city: req.body.city,
+             
+              img: req.body.img,
+              isAdmin: req.body.isAdmin,
+            } 
+       },
         { new: true }
       );
       res.status(200).json(updatedUser);

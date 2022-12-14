@@ -26,7 +26,7 @@ export const createRoom = async (req, res, next) => {
     }
 }
 
-export const updateRoom = async (req, res, next) => {
+export const updateRoomAvailability = async (req, res, next) => {
     try {
       await Room.updateOne(
         { "roomNumbers._id": req.params.id },
@@ -95,3 +95,24 @@ export const deleteRoom = async (req, res, next) => {
       next(err);
     }
   };
+
+  export const updateRoom = async (req, res, next) => {
+    try {
+      const updatedRoom = await Room.findByIdAndUpdate(
+        req.params.id,
+        { $set: 
+          {
+            title: req.body.title,
+            price:req.body.price,
+            desc:req.body.desc,
+            maxPeople:req.body.maxPeople,
+            roomNumbers: req.body.roomNumbers
+          }    
+                   },
+        { new: true }
+      );
+      res.status(200).json(updatedRoom);
+    } catch (err) {
+      next(err);
+    }
+  }
