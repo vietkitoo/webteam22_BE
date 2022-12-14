@@ -9,22 +9,26 @@ export const newBooking = async(req,res) => {
         room,
         roomId,
         userId,
+        hotel,
         username,
         fromDate,
         toDate,
         totalPrice,
         totalDays,
+        timepayment,
 
     } = (req.body);
 
     try{
         const newBooking = new Booking({
+            hotel: hotel,
             room: room,
             roomId: roomId,
             userId,
             username,
             fromDate: moment(fromDate).format('DD-MM-YY'),
             toDate : moment(toDate).format('DD-MM-YY'),
+            timepayment: moment(timepayment).format('DD-MM-YY'),
             totalPrice,
             totalDays,
             transactionId : '1234',
