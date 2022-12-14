@@ -21,7 +21,7 @@ router.get('/:id', verifyUser, getUser);
 //For get all users -> for admin section, only admin can see all users
 router.get('/', isAdmin, getAllUsers);
 
-router.put("/:id", verifyUser, updateUser);
+router.put("/:id/update", verifyUser, updateUser);
 
 //DELETE
 router.delete("/:id", verifyUser, deleteUser);

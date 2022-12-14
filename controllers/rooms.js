@@ -30,7 +30,15 @@ export const updateRoom = async (req, res, next) => {
   try {
     const updatedRoom = await Room.findByIdAndUpdate(
       req.params.id,
-      { $set: req.body },
+      { $set: 
+        {
+          title: req.body.title,
+          price:req.body.price,
+          desc:req.body.desc,
+          maxPeople:req.body.maxPeople,
+          roomNumbers: req.body.roomNumbers
+        }    
+                 },
       { new: true }
     );
     res.status(200).json(updatedRoom);
@@ -57,17 +65,12 @@ export const updateRoomAvailability = async (req, res, next) => {
 
 export const getRoom = async (req, res, next) => {
   try {
-
-      const room = await Room.findOne( { "roomNumbers._id": req.params.id },)
-      res.status(200).json(room);
-  }
-   
-  catch(err) {
-
+    const room = await Room.findById(req.params.id);
+    res.status(200).json(room);
+  } catch (err) {
     next(err);
-
-}
-}
+  }
+};
 
 
 export const getTypeRoom = async (req, res, next) => {

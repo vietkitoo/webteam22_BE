@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const bookingSchema = mongoose.Schema({
 
-    room : {
+    room: {
         type: String,
         require: true
     },
@@ -14,10 +14,31 @@ const bookingSchema = mongoose.Schema({
         type: String,
         require: true
     },
+    fullname: {
+        type: String,
+        require: true
+    },
+    hotelId: {
+        type: String,
+        require: true
+    },
+    hotelname: {
+        type: String,
+        require: true
+    },
+   phone: {
+        type: String,
+        require: true
+    },
+    PaymentDate: {
+        type: String,
+        require: true
+    },
     fromDate: {
         type: String,
         require: true
     },
+    
     toDate: {
         type: String,
         require: true
@@ -37,7 +58,7 @@ const bookingSchema = mongoose.Schema({
     status: {
         type: String,
         require: true,
-        default: 'đã đặt phòng'
+        default: 'Đang xử lý'
     }
 }, 
     { timestamps: true }

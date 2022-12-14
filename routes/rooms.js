@@ -10,7 +10,7 @@ router.post('/:hotelId', isAdmin, createRoom); //only als admin login can you ad
 //Update Room
 router.put("/availability/:id",  updateRoomAvailability);
 
-router.put("/:id",  updateRoom);
+router.put("/:id/update",  updateRoom);
 //For get room by id
 router.get('/:id', getRoom);
 
@@ -20,6 +20,6 @@ router.get('/typeroom/:id', getTypeRoom);
 router.get('/', getAllRooms);
 
 //Delete room
-router.delete("/:id/:hotelId", isAdmin, deleteRoom);
+router.delete("/:id", isAdmin, deleteRoom);
 
 export default router;

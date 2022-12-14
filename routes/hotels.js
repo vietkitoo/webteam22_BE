@@ -7,7 +7,7 @@ const router = express.Router();
 //For add new hotel only admin can add a new hotel 
 router.post('/', isAdmin, createHotel);
 
-router.put("/:id", isAdmin, updateHotel);
+router.put("/:id/update", isAdmin, updateHotel);
 
 //For get hotel by id
 router.get('/find/:id', getHotel);

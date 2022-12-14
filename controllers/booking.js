@@ -46,9 +46,9 @@ export const newBooking = async(req,res) => {
 };
 
 export const getBooking = async (req, res, next) => {
-    const id = req.body.userId
+    const user = await User.findOne({userId: req.body.userId});
     try {
-     const bookings = await Booking.find({id : id})
+     const bookings = await Booking.find({userId : userId})
       res.status(200).json(bookings);
     } catch (err) {
       next(err);
@@ -67,3 +67,30 @@ export const getAllBooking = async (req, res, next) => {
 
     }
 };
+
+export const UpdateBooking = async (req, res, next) =>{
+    try {
+      const booking = await Booking.findByIdAndUpdate(
+        req.params.id,
+        { $set: 
+          {
+            status: req.body.status,
+          }    
+                   },
+        { new: true }
+      );
+      res.status(200).json(booking);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+
+  export const getBookingAdmin = async (req, res, next) => {
+    try {
+      const booking = await Booking.findById(req.params.id);
+      res.status(200).json(booking);
+    } catch (err) {
+      next(err);
+    }
+  };
