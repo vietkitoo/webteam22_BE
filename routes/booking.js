@@ -1,12 +1,12 @@
 import express from 'express'
 
 const router = express.Router();
-import { newBooking, getBooking, getAllBooking , getBookingAdmin, UpdateBooking} from '../controllers/booking.js';
+import { newBooking, getAllBooking , getBookingId, UpdateBooking} from '../controllers/booking.js';
+import { isAdmin } from '../utils/verifyToken.js';
 
 
 router.post('/' , newBooking );
-
-router.get('/', getAllBooking);
-router.get('/:id', getBookingAdmin);
-router.put('/:id/update', UpdateBooking);
+router.get('/', isAdmin, getAllBooking);
+router.get('/:id', getBookingId);
+router.put('/:id/update',isAdmin, UpdateBooking);
 export default router;

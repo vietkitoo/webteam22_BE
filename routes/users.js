@@ -1,7 +1,7 @@
 import express from 'express'
 import { getAllUsers, getUser, updateUser, deleteUser, updatePassword } from '../controllers/users.js';
 import { isAdmin, verifyToken, verifyUser } from '../utils/verifyToken.js';
-import { newBooking, getBooking, getAllBooking , getBookingAdmin, UpdateBooking} from '../controllers/booking.js';
+import { getBookingUserId} from '../controllers/booking.js';
 
 const router = express.Router();
 
@@ -30,5 +30,5 @@ router.delete("/:id", verifyUser, deleteUser);
 //Reset password
 router.put('/password', updatePassword);
 //Get user booking
-router.get('/:id/booking', getBooking);
+router.get('/:id/booking', getBookingUserId);
 export default router;
