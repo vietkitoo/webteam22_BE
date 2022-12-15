@@ -21,6 +21,6 @@ router.get('/:id', getRoom);
 router.get('/', getAllRooms);
 
 //Delete room
-router.delete("/:id/:hotelId", isAdmin, deleteRoom);
+router.delete("/:id", isAdmin, deleteRoom);
 
 export default router;

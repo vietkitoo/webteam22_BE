@@ -5,7 +5,7 @@ import { newBooking, getBooking, getAllBooking , getBookingAdmin, UpdateBooking}
 
 
 router.post('/' , newBooking );
-router.get('/:id', getBooking);
+
 router.get('/', getAllBooking);
 router.get('/:id', getBookingAdmin);
 router.put('/:id/update', UpdateBooking);
