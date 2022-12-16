@@ -14,7 +14,7 @@ router.get("/checkuser/:id", verifyUser, (req, res, next) => {
     res.send('You are Logged In and You can delete account!')
 });
 
-
+//update user by id 
 router.put("/:id", verifyUser, updateUser);
 //For get user by id
 router.get('/:id', verifyUser, getUser);
