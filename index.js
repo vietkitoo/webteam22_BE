@@ -9,6 +9,7 @@ import bookingRoutes from './routes/booking.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
+
 //Create Port for Backend
 const app = express();
 

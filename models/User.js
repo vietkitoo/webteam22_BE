@@ -19,15 +19,18 @@ const UsersSchema = new mongoose.Schema({
       },
       country: {
         type: String,
+        default: "",
       },
       img: {
         type: String,
       },
       city: {
         type: String,
+        default: "",
       },
       phone: {
         type: String,
+        default: "",
       },
       password: {
         type: String,
