@@ -48,7 +48,7 @@ const bookingSchema = mongoose.Schema({
     status: {
         type: String,
         require: true,
-        default: 'đã đặt phòng'
+        default: 'đang thanh toán'
     }
 }, 
     { timestamps: true }

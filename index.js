@@ -15,20 +15,33 @@ const app = express();
 
 dotenv.config();
 
-const connect = async () => {
+export const connect = async (isHttpRequest = false) => {
 
     try {
 
-        await mongoose.connect(process.env.MONGODB_URI);
+        await mongoose.connect(process.env.MONGODB_URI,
+            {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+                dbName: 'test'
+            } );
         console.log("Connected to DB");
-    
+        if (isHttpRequest) return "connected";
     } catch(error) {
+        if (isHttpRequest) {
+            return error.message;
+        }
         throw error;
     }
 
 }
 
-app.use(cors());
+connect();
+
+app.use(cors({
+    credentials: true,
+    origin: process.env.FRONT_END_DOMAIN
+}));
 app.use(cookieParser());
 app.use(express.json());
 
