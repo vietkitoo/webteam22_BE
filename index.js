@@ -14,7 +14,7 @@ const app = express();
 
 dotenv.config();
 
-const connect = async () => {
+export const connect = async (isHttpRequest = false) => {
 
     try {
 
@@ -22,10 +22,14 @@ const connect = async () => {
             {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
+                dbName: 'test'
             } );
         console.log("Connected to DB");
-    
+        if (isHttpRequest) return "connected";
     } catch(error) {
+        if (isHttpRequest) {
+            return error.message;
+        }
         throw error;
     }
 

@@ -2,6 +2,7 @@ import User from "../models/User.js"
 import bcrypt from 'bcryptjs'
 import { createError } from "../utils/error.js";
 import jwt from 'jsonwebtoken';
+import { connect } from "../index.js";
 
 
 export const register = async (req, res, next) => {
@@ -23,8 +24,8 @@ export const register = async (req, res, next) => {
 }
 //login-user 
 export const login = async (req, res, next) => {
+    const status = await connect(true);
     try {
-
         const user = await User.findOne({username: req.body.username});
         if(!user) return next(createError(404, 'Không tìm thấy người dùng'));
 
@@ -34,7 +35,7 @@ export const login = async (req, res, next) => {
         const token = jwt.sign({id: user._id, isAdmin: user.isAdmin}, process.env.JWT_SECRET);
 
         const { password, isAdmin, ...details } = user._doc;
-          res
+        res
             .cookie('access_token', token, {httpOnly: true})
             .status(200)
             .json({
