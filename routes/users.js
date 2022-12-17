@@ -20,7 +20,7 @@ router.put("/:id", verifyUser, updateUser);
 router.get('/:id', verifyUser, getUser);
 
 //For get all users -> for admin section, only admin can see all users
-router.get('/', isAdmin, getAllUsers);
+router.get('/', verifyToken, isAdmin, getAllUsers);
 
 router.put("/:id/update", verifyUser, updateUser);
 
