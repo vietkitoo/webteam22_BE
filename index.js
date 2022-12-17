@@ -36,8 +36,6 @@ export const connect = async (isHttpRequest = false) => {
 
 }
 
-connect();
-
 app.use(cors({
     credentials: true,
     origin: process.env.FRONT_END_DOMAIN
