@@ -5,7 +5,7 @@ import { newBooking, getAllBooking , getBookingId, UpdateBooking} from '../contr
 import { isAdmin,verifyToken } from '../utils/verifyToken.js';
 
 
-router.post('/' , newBooking );
+router.post('/' , newBooking ); 
 router.get('/', verifyToken, isAdmin, getAllBooking);
 router.get('/:id', getBookingId);
 router.put('/:id/update',verifyToken, isAdmin,UpdateBooking);
