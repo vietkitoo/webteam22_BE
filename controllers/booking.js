@@ -15,6 +15,8 @@ export const newBooking = async(req,res) => {
         request,
         totalPrice,
         totalDays,
+        fromDate,
+        toDate,
     } = (req.body);
 
     try{
@@ -26,6 +28,8 @@ export const newBooking = async(req,res) => {
             email: email,
             phone: phone,
             request: request,
+            fromDate: fromDate,
+            toDate: toDate,
             totalPrice: totalPrice,
             totalDays: totalDays,
             transactionId : uuidv4(),
