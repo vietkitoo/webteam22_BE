@@ -2,36 +2,33 @@ import Booking from "../models/Booking.js";
 import Room from "../models/Room.js";
 import moment from 'moment';
 import Stripe from 'stripe';
-
+import { v4 as uuidv4 } from 'uuid';
 
 export const newBooking = async(req,res) => {
     const {
-        room,
         roomId,
         userId,
         hotel,
-        username,
-        fromDate,
-        toDate,
+        fullname,
+        email,
+        phone,
+        request,
         totalPrice,
         totalDays,
-        timepayment,
-
     } = (req.body);
 
     try{
         const newBooking = new Booking({
             hotel: hotel,
-            room: room,
             roomId: roomId,
-            userId,
-            username,
-            fromDate: moment(fromDate).format('DD-MM-YY'),
-            toDate : moment(toDate).format('DD-MM-YY'),
-            timepayment: moment(timepayment).format('DD-MM-YY'),
-            totalPrice,
-            totalDays,
-            transactionId : '1234',
+            userId: userId,
+            fullname: fullname,
+            email: email,
+            phone: phone,
+            request: request,
+            totalPrice: totalPrice,
+            totalDays: totalDays,
+            transactionId : uuidv4(),
         });
 
         const booking = await newBooking.save()
