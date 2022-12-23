@@ -29,6 +29,7 @@ router.delete("/:id", verifyUser, deleteUser);
 
 //Reset password
 router.put('/password', updatePassword);
+
 //Get user booking
 router.get('/:id/booking', getBookingUserId);
 export default router;

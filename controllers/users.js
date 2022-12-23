@@ -1,4 +1,6 @@
 import User from "../models/User.js";
+import bcrypt from 'bcryptjs';
+import { createError } from "../utils/error.js";
 
 export const getUser = async (req, res, next) => {
     try {
@@ -32,12 +34,7 @@ export const updateUser = async (req,res,next)=>{
         req.params.id,
         { $set: {
               fullname: req.body.fullname,
-              password: req.body.password,
-              country: req.body.country,
-              city: req.body.city,
-             
-              img: req.body.img,
-              isAdmin: req.body.isAdmin,
+              phone: req.body.phone,
             } 
        },
         { new: true }
@@ -57,21 +54,20 @@ export const deleteUser = async (req,res,next)=>{
     }
   }
 
-  //reset password
+//reset password
 export const updatePassword = async (req, res, next) => {
   try {
-      const user = await User.findById(req.body.userId);
+      const user = await User.findOne({_id: req.body.userId});
+      if(!user) return next(createError(404, 'Không tìm thấy người dùng'));
+      console.log(user);
+
       const passwordIsCorrect = await bcrypt.compare(req.body.password, user.password);
       if (!passwordIsCorrect){
-          res.status(400).json(
-              {
-                  status: "Wrong current password"
-              }
-          );
+        return next(createError(400, 'Mật khẩu không chính xác'));
       } else{
           const salt = bcrypt.genSaltSync(10);
           const hash = bcrypt.hashSync(req.body.newPassword, salt);
-          user.password = hash;
+          user.password = hash.toString();
           await user.save();
           res.status(200).json(
               {
